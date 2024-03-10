@@ -1,19 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--==============レイアウトを制御する独自のCSSを読み込み===============-->
   <link rel="stylesheet" href="./assets/css/style.css">
   <link rel="logo" href="./assets/images/logo.png">
   <title>CssAnimation01</title>
 </head>
 <body>
-  <h1>
-    <span>CssAnimation01</span>
-  </h1>
-  <img src="./assets/images/logo.png" alt="" width=25% height=auto>
+  <div id="splash">
+    <div id="splash_logo">
+      <img src="./assets/images/react_logo.svg" alt="" width=25% height=auto class="fadeUp">
+    </div>
+  </div>
 
+  <main>
+    <div id="container">
+      <p>ようこそ</p>
+      <!--/container-->
+    </div>
+  </main>
+  
+  <!--==============JQuery読み込み（CDN読み込みと自作jsファイルの2つ）===============-->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="/Users/matsuzakayuuta/workspace/create/css/css_animation_01/assets/js/test.js"></script>
+  <script src="/Users/matsuzakayuuta/workspace/create/css/css_animation_01/assets/js/loading.js"></script>
 </body>
 </html>
