@@ -180,7 +180,3 @@ $ touch assets/css/style.css
 
 ## よく使うタグ
 
-`<img src="" alt="" width="50%" height=auto>`
-
-`***<font color="salmon">テキスト</font>***`
-
