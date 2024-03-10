@@ -167,11 +167,182 @@ $ touch assets/css/style.css
 
 ### ***<font color="salmon">ロゴアニメーションの実装</font>***
 
+***idnex.html***
+
+- ひとまずこちらのページのソースコードをコピペします
+
+https://coco-factory.jp/ugokuweb/move01/4-1-4/
+
+- そこから不要な記述を削除したり微調整します。
+
+
+***styles.css***
+
+- 次にCSSにスタイルを実装します
+
+
+***loading.js***
+
+- 次にJSファイルを新規作成して実装します
+- JQueryを使い、ロゴ画像の表示とフェードアウトを表現します
+- なお、前回までに実装した`test.js`は不要なので一旦コメントアウトします
 
 
 
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3486945/eca70823-7965-cc1e-c2b6-954faab3c22a.jpeg" alt="" width="50%" height=auto>
+
+- フェードアップしての表示はしてくれましたが、フェードアウトはしてくれません
+- また、フェードアウト後の「ローディング後、この画面が見えます。」と表示されません
+- どうやらJSの読み込みファイルを指定し忘れていました
+- htmlの`script`タグの読み込みファイルを`loading.js`に差し替えました
+- ついでに画像も別のSVG画像に差し替えてみました（なお、普通にpngファイルでもいけました
+
+<br>
 
 
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3486945/5a174fb2-cc3d-4042-20d1-e96f4f0abd8f.jpeg" alt="" width="50%" height=auto>
+
+- 2秒でロゴがフェードアウトして3秒でindex.htmlのbodyタグのテキストが表示される
+
+<img src="https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3486945/983e2ac4-3c47-f7f9-23ac-3e4ba8670c8c.jpeg" alt="" width="50%" height=auto>
+
+- これで思い通りの挙動を実現できました
+- 以下、ソースコードになります
+
+
+### ***<font color="salmon">ソースコード</font>***
+
+
+```html
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--==============レイアウトを制御する独自のCSSを読み込み===============-->
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="logo" href="./assets/images/logo.png">
+  <title>CssAnimation01</title>
+</head>
+<body>
+  <div id="splash">
+    <div id="splash_logo">
+      <img src="./assets/images/react_logo.svg" alt="" width=25% height=auto class="fadeUp">
+    </div>
+  </div>
+
+  <main>
+    <div id="container">
+      <p>ようこそ</p>
+      <!--/container-->
+    </div>
+  </main>
+  
+  <!--==============JQuery読み込み（CDN読み込みと自作jsファイルの2つ）===============-->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="/Users/matsuzakayuuta/workspace/create/css/css_animation_01/assets/js/loading.js"></script>
+</body>
+</html>
+```
+
+```css
+/* styles.css　*/
+
+@charset "utf-8";
+
+/*========= LoadingのためのCSS ===============*/
+
+/* Loading背景画面設定　*/
+#splash {
+    /*fixedで全面に固定*/
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  background:#333;
+  text-align:center;
+  color:#fff;
+}
+
+/* Loading画像中央配置　*/
+#splash_logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Loading アイコンの大きさ設定　*/
+#splash_logo img {
+  width:260px;
+}
+
+/* fadeUpをするアイコンの動き */
+
+.fadeUp{
+animation-name: fadeUpAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity: 0;
+}
+
+@keyframes fadeUpAnime{
+  from {
+    opacity: 0;
+  transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+  transform: translateY(0);
+  }
+}
+
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+#container{
+    font-size: 5rem;
+    width:100%;
+    height: 100vh;
+    background: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+a{
+    color: #333;
+}
+
+a:hover{
+     text-decoration: none;   
+}
+```
+
+```js
+// loading.js
+// logoの表示
+$(window).on('load',function(){
+  $("#splash").delay(3000).fadeOut('slow');//ローディング画面を3.0秒（3000ms）待機してからフェードアウト
+  $("#splash_logo").delay(2000).fadeOut('slow');//ロゴを2.0秒（2000ms）待機してからフェードアウト
+});
+```
+
+<br>
+
+## 感想
+
+- CSSアニメーションが簡単にできました
+- また、JQueryのメソッドを扱うのは初めて(？)だったので迷いそうでしたが、参考サイト様のおかげでそこまで迷わずに実装することができてよかったです
+- `動くWebデザインアイディア帳` 最高です!!!ありがとうございました!!!
+- 大体の実装の感じは掴めたので、今度は`TypeScript`と`Next.js`でCSSアニメーションを実装できるように挑戦していきます
+- Next.jsとJQueryは共存できるのか？
+- よくわかりませんが、調べながら挑戦していきます
 
 
 
